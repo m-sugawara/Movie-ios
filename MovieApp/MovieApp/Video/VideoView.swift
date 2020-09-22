@@ -13,7 +13,9 @@ struct VideoView: View {
     var movieURL: URL
 
     var body: some View {
-        VideoViewController(movieURL: movieURL)
+        ZStack {
+            VideoViewController(movieURL: movieURL)
+        }
     }
 }
 

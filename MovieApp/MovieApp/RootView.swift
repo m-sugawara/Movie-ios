@@ -1,0 +1,34 @@
+//
+//  RootView.swift
+//  MovieApp
+//
+//  Created by M_Sugawara on 2020/09/22.
+//  Copyright © 2020 M_Sugawara. All rights reserved.
+//
+
+import SwiftUI
+
+struct RootView<ContentView: View, LoginView: View>: View {
+
+    @ObservedObject var appState: AppState
+
+    var contentView: ContentView
+    var loginView: LoginView
+
+    var body: some View {
+        ZStack {
+            contentView
+        }.sheet(isPresented: $appState.isLoggedIn, content: {
+            loginView
+        })
+    }
+}
+
+struct RootView_Previews: PreviewProvider {
+    static var previews: some View {
+        let appState = AppState()
+        let loginView = LoginFactory.make(with: appState)
+        let contentView = VideoFactory.make()
+        RootView(appState: appState, contentView: contentView, loginView: loginView)
+    }
+}
