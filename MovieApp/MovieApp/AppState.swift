@@ -8,6 +8,6 @@
 
 import SwiftUI
 
-class AppState: ObservableObject {
+final class AppState: ObservableObject {
     @Published var isLoggedIn: Bool = false
 }

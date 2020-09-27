@@ -20,14 +20,9 @@ final class RootMasterCoordinator: MasterCoordinator {
     }
 
     func start() {
-        let videoView = VideoFactory.make()
-        let videoViewController = UIHostingController(rootView: videoView)
-        window?.rootViewController = videoViewController
+        let rootView = RootFactory.make(withAppState: appState!)
+        let rootViewController = UIHostingController(rootView: rootView)
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
-
-        let loginView = LoginFactory.make(with: appState)
-        let loginViewController = UIHostingController(rootView: loginView)
-        loginViewController.modalPresentationStyle = .overFullScreen
-        window?.rootViewController?.present(loginViewController, animated: false)
     }
 }
