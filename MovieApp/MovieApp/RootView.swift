@@ -18,7 +18,7 @@ struct RootView<ContentView: View, LoginView: View>: View {
     var body: some View {
         ZStack {
             contentView
-        }.sheet(isPresented: $appState.isLoggedIn, content: {
+        }.modalLink(isPresented: !$appState.isLoggedIn, destination: {
             loginView
         })
     }
