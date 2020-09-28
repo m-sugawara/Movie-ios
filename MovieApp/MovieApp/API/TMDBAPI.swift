@@ -91,7 +91,7 @@ enum TMDBError: Error {
     case serverError(info: TMDBErrorInfo)
     case unexpectedError(body: String)
 
-    var localizedString: String {
+    var localizedDescription: String {
         switch self {
         case .clientError:
             return "client error"

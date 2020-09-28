@@ -21,3 +21,5 @@ struct Movie: Codable {
         case posterPath = "poster_path"
     }
 }
+
+extension Movie: Hashable {}
