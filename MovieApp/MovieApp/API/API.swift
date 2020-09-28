@@ -9,7 +9,14 @@
 import Foundation
 
 struct Request {
+    enum Method: String {
+        case get = "GET"
+        case post = "POST"
+    }
+
+    let method: Method
     let url: URL
+    let headers: [String: String]?
 }
 
 struct Response {
@@ -17,19 +24,20 @@ struct Response {
 }
 
 enum APIError: Error {
-    case httpError(statusCode: Int?)
-    case other
+    case clientError
+    case serverError(statusCode: Int?, data: Data?)
 }
 
-protocol API {
-    func request(_ request: Request, completion: (Response) -> Void)
-}
+protocol API {}
 
 extension API {
-    func request(_ request: Request, completion: @escaping (Result<Response, APIError>) -> Void) {
+    @discardableResult
+    func sendRequest(_ request: Request, completion: @escaping (Result<Response, APIError>) -> Void) -> URLSessionDataTask {
         let session = URLSession.shared
-        let urlRequest = URLRequest(url: request.url)
-        session.dataTask(with: urlRequest) { data, response, error in
+        var urlRequest = URLRequest(url: request.url)
+        urlRequest.allHTTPHeaderFields = request.headers
+        urlRequest.httpMethod = request.method.rawValue
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 let apiError = self.handleClientError(error)
                 completion(.failure(apiError))
@@ -37,24 +45,24 @@ extension API {
             }
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                let apiError = self.handleServerError(response)
+                let apiError = self.handleServerError(response, data: data)
                 completion(.failure(apiError))
                 return
             }
             let response = self.handleResponse(response, data: data)
             completion(.success(response))
         }
+        task.resume()
+        return task
     }
 
     private func handleClientError(_ error: Error) -> APIError {
-        return .other
+        print("client error: \(error.localizedDescription)")
+        return .clientError
     }
 
-    private func handleServerError(_ response: URLResponse?) -> APIError {
-        if let httpResponse = response as? HTTPURLResponse {
-            return .httpError(statusCode: httpResponse.statusCode)
-        }
-        return .other
+    private func handleServerError(_ response: URLResponse?, data: Data?) -> APIError {
+        return .serverError(statusCode: (response as? HTTPURLResponse)?.statusCode, data: data)
     }
 
     private func handleResponse(_ response: URLResponse?, data: Data?) -> Response {
