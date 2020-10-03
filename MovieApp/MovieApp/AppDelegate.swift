@@ -16,21 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        tmdbAPI.sendRequest(.moviePopular) { (result: Result<MoviePopular, TMDBError>) in
-            switch result {
-            case .success(let item):
-                print("success: \(item)")
-            case .failure(let error):
-                switch error {
-                case .clientError:
-                    print("Client Error")
-                case .serverError(let info):
-                    print("Server Error: \(info.statusMessage)")
-                case .unexpectedError(let body):
-                    print("Unexpected Error: \(body)")
-                }
-                break
-            }
+        if (Auth.auth().currentUser != nil) {
+            print("current user is not nil.")
         }
         return true
     }
