@@ -31,20 +31,10 @@ struct MovieListView: View {
         ScrollView {
             VStack {
                 ForEach(presenter.movieList, id: \.self) { movie in
-                    if let posterPath = movie.posterPath {
-                        AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + posterPath)!) {
-                            placeholder(title: movie.title)
-                        }.aspectRatio(contentMode: .fit)
-                    } else {
-                        placeholder(title: movie.title)
-                    }
+                    MovieView(movie: movie)
                 }
             }
         }
-    }
-
-    private func placeholder(title: String) -> some View {
-        Text(title)
     }
 }
 
