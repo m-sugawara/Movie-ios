@@ -24,11 +24,13 @@ struct RootView<ContentView: View, LoginView: View>: View {
     }
 }
 
+#if DEBUG
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         let appState = AppState()
         let loginView = LoginFactory.make(with: appState)
-        let contentView = VideoFactory.make()
+        let contentView = MovieListFactory.make()
         RootView(appState: appState, contentView: contentView, loginView: loginView)
     }
 }
+#endif

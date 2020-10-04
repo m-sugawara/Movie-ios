@@ -14,6 +14,15 @@ struct Movie: Codable {
     let video: Bool
     let posterPath: String?
 
+    // TODO: Need to fix later
+    // Ref: https://developers.themoviedb.org/3/getting-started/images
+    var fullPath: String? {
+        if let posterPath = posterPath {
+            return "https://image.tmdb.org/t/p/w500" + posterPath
+        }
+        return nil
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -21,3 +30,16 @@ struct Movie: Codable {
         case posterPath = "poster_path"
     }
 }
+
+extension Movie: Hashable {}
+
+#if DEBUG
+extension Movie {
+    static var mock: Movie {
+        return Movie(id: 1,
+                     title: "mock",
+                     video: true,
+                     posterPath: "mock")
+    }
+}
+#endif
