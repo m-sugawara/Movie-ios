@@ -10,4 +10,12 @@ import SwiftUI
 
 final class AppState: ObservableObject {
     @Published var isLoggedIn: Bool = false
+
+    init(isLoggedIn: Bool) {
+        self.isLoggedIn = isLoggedIn
+    }
+
+    static var `default`: AppState {
+        return AppState(isLoggedIn: false)
+    }
 }

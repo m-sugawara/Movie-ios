@@ -64,7 +64,7 @@ struct LoginView<T: LoginPresenterInput>: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        let appState = AppState()
+        let appState = AppState.default
         let presenter = LoginPresenter(appState: appState, loginModel: DummyLoginModel())
         LoginView(presenter: presenter)
     }

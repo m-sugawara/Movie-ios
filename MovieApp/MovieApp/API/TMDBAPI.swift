@@ -11,6 +11,10 @@ import FileLoader
 
 struct TMDB: Decodable {
     let apiKey: String
+
+    enum CodingKeys: String, CodingKey {
+        case apiKey = "API_KEY"
+    }
 }
 
 struct TMDBErrorInfo: Decodable {

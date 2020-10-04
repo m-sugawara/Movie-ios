@@ -27,7 +27,7 @@ struct RootView<ContentView: View, LoginView: View>: View {
 #if DEBUG
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        let appState = AppState()
+        let appState = AppState.default
         let loginView = LoginFactory.make(with: appState)
         let contentView = MovieListFactory.make()
         RootView(appState: appState, contentView: contentView, loginView: loginView)
