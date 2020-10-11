@@ -6,10 +6,10 @@
 //  Copyright © 2020 M_Sugawara. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 struct Movie: Codable {
-    let id: Int
+    var id: Int
     let title: String
     let video: Bool
     let posterPath: String?
@@ -32,6 +32,8 @@ struct Movie: Codable {
 }
 
 extension Movie: Hashable {}
+
+extension Movie: Identifiable {}
 
 #if DEBUG
 extension Movie {

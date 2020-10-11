@@ -31,7 +31,11 @@ struct MovieListView: View {
         ScrollView {
             VStack {
                 ForEach(presenter.movieList, id: \.self) { movie in
-                    MovieRow(movie: movie)
+                    NavigationLink(
+                        destination: MovieDetailView(movie: movie),
+                        label: {
+                            MovieRow(movie: movie)
+                        })
                 }
             }
         }
