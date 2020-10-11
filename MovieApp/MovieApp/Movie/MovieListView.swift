@@ -31,7 +31,7 @@ struct MovieListView: View {
         ScrollView {
             VStack {
                 ForEach(presenter.movieList, id: \.self) { movie in
-                    MovieView(movie: movie)
+                    MovieRow(movie: movie)
                 }
             }
         }

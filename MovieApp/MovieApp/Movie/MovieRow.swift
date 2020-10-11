@@ -1,5 +1,5 @@
 //
-//  MovieView.swift
+//  MovieRow.swift
 //  MovieApp
 //
 //  Created by M_Sugawara on 2020/08/16.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MovieView: View {
+struct MovieRow: View {
 
     let movie: Movie
 
@@ -40,9 +40,9 @@ struct MovieView: View {
 }
 
 #if DEBUG
-struct MovieView_Previews: PreviewProvider {
+struct MovieRow_Previews: PreviewProvider {
     static var previews: some View {
-        MovieView(movie: Movie.mock)
+        MovieRow(movie: Movie.mock)
     }
 }
 #endif
