@@ -19,12 +19,14 @@ struct MovieView: View {
     private var contentView: some View {
         HStack {
             image
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 200)
+                .frame(width: 50, height: 50)
             VStack(alignment: .leading, spacing: 4) {
                 Text(movie.title)
-                Text("SubTitle")
-            }.frame(width: 200)
+                    .lineLimit(1)
+                Text("Description")
+                    .lineLimit(1)
+            }
+            Spacer()
         }
     }
 
